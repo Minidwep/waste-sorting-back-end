@@ -1,10 +1,10 @@
-package com.minidwep.rubbishsort;
+package com.minidwep.wasteSorting;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RubbishSortApplicationTests {
+class GarbageClassificationApplicationTests {
 
     @Test
     void contextLoads() {

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minidwep.wasteSorting.mapper.QuestionMapper">
+
+  <select id="getQuestionById" resultType="com.minidwep.wasteSorting.bean.Question">
+    select * from question where id = #{id}
+  </select>
+
+  <select id="getPaperQuestions" resultType="com.minidwep.wasteSorting.bean.Question">
+    select * from question order by rand() limit 10
+  </select>
+
+</mapper>
