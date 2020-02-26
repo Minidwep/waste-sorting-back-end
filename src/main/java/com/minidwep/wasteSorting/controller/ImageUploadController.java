@@ -2,23 +2,28 @@ package com.minidwep.wasteSorting.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.minidwep.wasteSorting.Util.Msg;
+import com.minidwep.wasteSorting.bean.Rubbish;
+import com.minidwep.wasteSorting.service.RubbishService;
 import com.minidwep.wasteSorting.utils.GetAipImageClassify;
+import com.minidwep.wasteSorting.utils.Result;
+import com.minidwep.wasteSorting.utils.ResultItem;
 import com.minidwep.wasteSorting.utils.UploadFile;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class ImageUploadController {
-
+    @Autowired
+    RubbishService rubbishService;
+    GetAipImageClassify instance = GetAipImageClassify.getInit();
     @PostMapping("/fileUpload")
     @ResponseBody
     public Msg upload(@RequestParam("file") MultipartFile file){
@@ -26,22 +31,28 @@ public class ImageUploadController {
         String localPath = "E:/Photos";
         System.out.println(file.getOriginalFilename());
         if (UploadFile.upload(file, localPath, file.getOriginalFilename())){
-            GetAipImageClassify instance = GetAipImageClassify.getInit();
-            // 传入可选参数调用接口
-            HashMap<String, String> options = new HashMap<String, String>();
-            options.put("baike_num", "5");
-            // 参数为本地路径
-            String image = "E:\\Photos\\1.jpg";
-            JSONObject jsonObj = instance.client.advancedGeneral(image, options);
-            String jsonAllStr =JSONObject.valueToString(jsonObj);
-            String getJsonb = JSON.parseObject(jsonAllStr).getString("result");
-            System.out.println(getJsonb);
 
+            String image = localPath+"/"+file.getOriginalFilename();
+            JSONObject res = instance.client.advancedGeneral(image,null);
+            String jsonString =JSONObject.valueToString(res);
+            Result result = JSON.parseObject(jsonString, Result.class);
+            List<ResultItem> resultItems = result.getResult();
+            List<ResultItem> resultList = resultItems.stream().sorted(Comparator.comparing(ResultItem::getScore).reversed())
+                    .collect(Collectors.toList());
+            List<Rubbish> rubbishes = new ArrayList<>();
+            for(ResultItem item: resultList){
+                Rubbish rubbish;
+                rubbish = rubbishService.getRubbishByName(item.getKeyword());
+                if(rubbish == null){
+                    rubbish = rubbishService.getRubbishByName(item.getRoot());
+                }
+                if(rubbish != null){
+                    rubbish.setScore(item.getScore());
+                    rubbishes.add(rubbish);
+                }
 
-
-            JSONObject result1 = jsonObj.getJSONObject("result");
-            System.out.println(result1);
-            return Msg.success();
+            }
+            return Msg.success().add("rubbishes",rubbishes).add("resultList",resultList);
         }else {
             return Msg.fail();
         }

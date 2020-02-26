@@ -21,10 +21,21 @@ public class test {
 //        System.out.println(res.toString(2));
 
         String jsonAllStr =JSONObject.valueToString(res);
-        String getJsonb = JSON.parseObject(jsonAllStr).getString("result");
-        System.out.println(getJsonb);
-
-        List<Student> strjsonb = JSON.parseArray(getJsonb, Student.class);
-        System.out.println(strjsonb.get(1).toString());
+        Result result = JSON.parseObject(jsonAllStr, Result.class);
+//        Result strjsonb = JSON.parseArray(jsonAllStr, Result.class);
+        System.out.println(result.toString());
+        List<ResultItem> items = result.getResult();
+        for(ResultItem item : items){
+            System.out.println(item.toString());
+        }
+//        String jsonAllStr =JSONObject.valueToString(res);
+//        String getJsonb = JSON.parseObject(jsonAllStr).getString("result");
+//        System.out.println(getJsonb);
+//
+//        List<ResultItem> strjsonb = JSON.parseArray(getJsonb, ResultItem.class);
+//        for(ResultItem item : strjsonb){
+//            System.out.println(item.toString());
+//        }
+//        System.out.println(strjsonb.get(1).toString());
     }
 }

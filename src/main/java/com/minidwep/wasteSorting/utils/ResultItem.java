@@ -1,10 +1,9 @@
 package com.minidwep.wasteSorting.utils;
 
-public class Student {
+public class ResultItem {
     String score;
     String root;
     String keyword;
-    String baike_info;
 
     public String getScore() {
         return score;
@@ -30,21 +29,12 @@ public class Student {
         this.keyword = keyword;
     }
 
-    public String getBaike_info() {
-        return baike_info;
-    }
-
-    public void setBaike_info(String baike_info) {
-        this.baike_info = baike_info;
-    }
-
     @Override
     public String toString() {
-        return "Student{" +
+        return "ResultItem{" +
                 "score='" + score + '\'' +
                 ", root='" + root + '\'' +
                 ", keyword='" + keyword + '\'' +
-                ", baike_info='" + baike_info + '\'' +
                 '}';
     }
 }
