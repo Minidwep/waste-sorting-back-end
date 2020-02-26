@@ -51,6 +51,8 @@ public class ImageUploadController {
                     rubbishes.add(rubbish);
                 }
 
+
+
             }
             return Msg.success().add("rubbishes",rubbishes).add("resultList",resultList);
         }else {
