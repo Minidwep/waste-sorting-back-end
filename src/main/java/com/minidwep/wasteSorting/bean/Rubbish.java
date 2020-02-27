@@ -1,11 +1,11 @@
 package com.minidwep.wasteSorting.bean;
 
 public class Rubbish {
-    int id;
-    int type;
-    String rubName;
-    int weight;
-    String score;
+    private int id;
+    private int type;
+    private String rubName;
+    private int weight;
+    private String score;
 
     public int getId() {
         return id;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minidwep.wasteSorting.mapper.FeedbackMapper">
+
+    <insert id="addFeedback" parameterType="com.minidwep.wasteSorting.bean.Feedback">
+        insert into feedback (feedback.type,feedback.rub_name)values(
+            #{feedback.type},
+            #{feedback.rubName}
+        )
+     </insert>
+    <select id="getFeedbackByRubName" resultType="com.minidwep.wasteSorting.bean.Feedback">
+        select * from feedback where rub_name = #{rubName}
+    </select>
+    <update id="updateFeedback"  parameterType="com.minidwep.wasteSorting.bean.Feedback">
+         update feedback SET
+         feedback.type=#{feedback.type},
+         feedback.rub_name=#{feedback.rubName},
+         feedback.status=#{feedback.status},
+         feedback.weight=#{feedback.weight}
+         where id=#{feedback.id}
+    </update>
+</mapper>
