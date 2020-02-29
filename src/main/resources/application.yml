@@ -3,9 +3,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
     initialization-mode: always
-#    schema:
-#      - classpath:sql/department.sql
-#      - classpath:sql/employee.sql
+    #    schema:
+    #      - classpath:sql/department.sql
+    #      - classpath:sql/employee.sql
     druid:
       ##################################### 本地数据库
       url:  jdbc:mysql://localhost:3306/garbage_classification?serverTimezone=GMT&characterEncoding=utf8
@@ -50,6 +50,10 @@ spring.datasource.druid.aop-patterns: com.minidwep.wasteSorting.controller.*
 spring.aop.proxy-target-class: true
 mybatis:
   mapper-locations: classpath:mybatis/*.xml
-#  config-location: classpath:mybatis/mybatis-config.xml
+  #  config-location: classpath:mybatis/mybatis-config.xml
   configuration:
     call-setters-on-nulls: true
+
+logging:
+  file: mylogs.log
+  path: D:/SuperMapDataLogs/mylogs

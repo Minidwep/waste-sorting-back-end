@@ -9,8 +9,14 @@
         )
      </insert>
     <select id="getFeedbackByRubName" resultType="com.minidwep.wasteSorting.bean.Feedback">
-        select * from feedback where rub_name = #{rubName}
+        select * from feedback where feedback.rub_name = #{rubName}
     </select>
+    <select id="getFeedbackByRubNameAndType" resultType="com.minidwep.wasteSorting.bean.Feedback">
+        select * from feedback where feedback.rub_name = #{rubName} and feedback.type= #{rubType}
+    </select>
+
+
+
     <update id="updateFeedback"  parameterType="com.minidwep.wasteSorting.bean.Feedback">
          update feedback SET
          feedback.type=#{feedback.type},

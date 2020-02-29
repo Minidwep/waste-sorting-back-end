@@ -15,10 +15,10 @@ public class FeedbackServiceImpl implements  FeedbackService {
         feedbackMapper.addFeedback(feedback);
         return false;
     }
-
     @Override
-    public Feedback getFeedbackByRubName(String rubName) {
-        return feedbackMapper.getFeedbackByRubName(rubName);
+    public Feedback getFeedbackByRubNameAndType(String rubName,String rubType) {
+        return feedbackMapper.getFeedbackByRubNameAndType(rubName,rubType);
+//        return feedbackMapper.getFeedbackByRubName(rubName);
     }
 
     @Override

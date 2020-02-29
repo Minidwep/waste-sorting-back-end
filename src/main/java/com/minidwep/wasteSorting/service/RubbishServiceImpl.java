@@ -16,19 +16,20 @@ public class RubbishServiceImpl implements RubbishService{
     @Resource
     RubbishMapper rubbishMapper;
     @Override
-    public Rubbish getRubbishByName(String rubName, int i) {
-        Rubbish rubbish = rubbishMapper.getRubbishByName(rubName);
-        if(rubbish != null && i ==1){
-            System.out.println(i+rubName);
-            rubbish.setWeight(rubbish.getWeight()+1);
-            rubbishMapper.updateRubbish(rubbish);
-        }
-        return rubbish ;
+    public Rubbish rubbishByRubNameWithMaxWeight(String rubName, int i) {
+
+        Rubbish rubbishByRubNameWithMaxWeight = rubbishMapper.getRubbishByRubNameWithMaxWeight(rubName);
+        return rubbishByRubNameWithMaxWeight ;
     }
 
     @Override
     public Rubbish getRubbishById(Integer id) {
         return rubbishMapper.getRubbishById(id);
+    }
+
+    @Override
+    public void updateRubbish(Rubbish rubbish) {
+        rubbishMapper.updateRubbish(rubbish);
     }
 
     @Override
@@ -47,6 +48,11 @@ public class RubbishServiceImpl implements RubbishService{
     @Override
     public void addRubbish(Rubbish rubbish) {
         rubbishMapper.addRubbish(rubbish);
+    }
+
+    @Override
+    public Rubbish getRubbishByRubNameAndType(String rubName, Integer rubType) {
+        return rubbishMapper.getRubbishByRubNameAndType(rubName,rubType);
     }
 
 

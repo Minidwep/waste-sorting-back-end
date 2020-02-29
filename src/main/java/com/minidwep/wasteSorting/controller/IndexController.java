@@ -40,9 +40,9 @@ public class IndexController {
         List<Rubbish> rubbishList = new ArrayList<>();
         for(ResultItem item: resultList){
             Rubbish rubbish;
-            rubbish = rubbishService.getRubbishByName(item.getKeyword(),1);
+            rubbish = rubbishService.rubbishByRubNameWithMaxWeight(item.getKeyword(),1);
             if(rubbish == null){
-                rubbish = rubbishService.getRubbishByName(item.getRoot(),0);
+                rubbish = rubbishService.rubbishByRubNameWithMaxWeight(item.getRoot(),0);
             }
             if(rubbish != null){
                 rubbish.setScore(item.getScore());
@@ -52,5 +52,12 @@ public class IndexController {
         return Msg.success().add("rubbishList",rubbishList).add("resultList",resultList);
     }
 
+    @GetMapping("/searchKeyword")
+    @ResponseBody
+    public Msg searchKeyword(@RequestParam("keyword") String keyword){
+        Rubbish rubbish = rubbishService.rubbishByRubNameWithMaxWeight(keyword,1);
+
+        return Msg.success().add("rubbish",rubbish);
+    }
 
 }

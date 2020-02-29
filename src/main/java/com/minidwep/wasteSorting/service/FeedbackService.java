@@ -8,7 +8,7 @@ public interface FeedbackService {
 
     boolean addFeedback(Feedback feedback);
 
-    Feedback getFeedbackByRubName(String rubName);
+    Feedback getFeedbackByRubNameAndType(String rubName,String rubType);
 
     void updateFeedback(Feedback feedback);
 }

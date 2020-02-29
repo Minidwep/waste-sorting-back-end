@@ -14,4 +14,5 @@ public interface FeedbackMapper {
     void addFeedback(@Param("feedback")Feedback feedback);
     Feedback getFeedbackByRubName(@Param("rubName") String rubName);
     void updateFeedback(@Param("feedback")Feedback feedback);
+    Feedback getFeedbackByRubNameAndType(@Param("rubName")String rubName, @Param("rubType")String rubType);
 }

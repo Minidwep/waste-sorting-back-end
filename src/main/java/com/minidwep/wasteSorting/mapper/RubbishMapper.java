@@ -11,12 +11,13 @@ import java.util.List;
 @Mapper
 @Component
 public interface RubbishMapper {
-    Rubbish getRubbishByName(@Param("rubName") String rubName);
+    Rubbish getRubbishByRubNameWithMaxWeight(@Param("rubName") String rubName);
 
     Rubbish getRubbishById(@Param("id") Integer id);
 
-    void addRubbish(@Param("rubbish")Rubbish rubbish);
+    void addRubbish(@Param("rubbish") Rubbish rubbish);
 
-    void updateRubbish(@Param("rubbish")Rubbish rubbish);
+    void updateRubbish(@Param("rubbish") Rubbish rubbish);
 
+    Rubbish getRubbishByRubNameAndType(@Param("rubName")String rubName, @Param("rubType")Integer rubType);
 }
