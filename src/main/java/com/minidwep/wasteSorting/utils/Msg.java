@@ -1,4 +1,4 @@
-package com.minidwep.wasteSorting.Util;
+package com.minidwep.wasteSorting.utils;
 
 
 import java.util.HashMap;

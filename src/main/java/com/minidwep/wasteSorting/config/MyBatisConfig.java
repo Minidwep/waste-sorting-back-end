@@ -1,6 +1,5 @@
 package com.minidwep.wasteSorting.config;
 
-
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

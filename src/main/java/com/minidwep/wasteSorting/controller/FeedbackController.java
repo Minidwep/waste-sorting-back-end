@@ -1,6 +1,6 @@
 package com.minidwep.wasteSorting.controller;
 
-import com.minidwep.wasteSorting.Util.Msg;
+import com.minidwep.wasteSorting.utils.Msg;
 import com.minidwep.wasteSorting.bean.Feedback;
 import com.minidwep.wasteSorting.bean.Rubbish;
 import com.minidwep.wasteSorting.service.FeedbackService;
@@ -58,8 +58,6 @@ public class FeedbackController {
             feedbackService.addFeedback(feedbackAdd);
         }
 
-//        Feedback feedback = new Feedback();
-//        feedbackService.addFeedback(feedback);
         return Msg.success();
     }
 

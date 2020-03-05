@@ -1,14 +1,11 @@
 package com.minidwep.wasteSorting.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.minidwep.wasteSorting.Util.Msg;
+import com.minidwep.wasteSorting.utils.Msg;
 import com.minidwep.wasteSorting.bean.Rubbish;
 import com.minidwep.wasteSorting.service.RubbishService;
-import com.minidwep.wasteSorting.utils.GetAipImageClassify;
 import com.minidwep.wasteSorting.utils.Result;
 import com.minidwep.wasteSorting.utils.ResultItem;
-import com.minidwep.wasteSorting.utils.UploadFile;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
