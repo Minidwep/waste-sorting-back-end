@@ -53,8 +53,18 @@ public class test {
     }
 
     public static void main(String[] args) {
+
+
+//        try {
+//            JedisCluster jedisCluster = getJedis();
+//            String rubbish = jedisCluster.get("rubbish王冠锐");
+//            System.out.println(rubbish);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         try {
             JedisCluster jedisCluster = getJedis();
+            jedisCluster.del("test1");
             jedisCluster.zadd("test1", 10, "香蕉皮");
             jedisCluster.zadd("test1", 20, "南瓜20皮");
             jedisCluster.zadd("test1", 50, "苹果50皮");
@@ -70,23 +80,21 @@ public class test {
                 System.out.println(zscore);
                 jedisCluster.zincrby("test1",1,"西瓜皮");
             }
-            Set<String> test1 = jedisCluster.zrevrangeByScore("test1", 10000, -1);
+            Set<String> test1 = jedisCluster.zrevrangeByScore("rank", 10000, -1);
             for(String str :test1){
-                System.out.println(str);
+                Double zscore = jedisCluster.zscore("rank", str);
+                System.out.println(zscore+"-"+str);
             }
 
-
-
-//            jedisCluster.zincrby("test1")
         } catch (Exception e){
             e.printStackTrace();
         }
-//        String time = "0";
-//        if(time.equals("24")){
-//            SimpleDateFormat df = new SimpleDateFormat("HH");//设置日期格式
-//            time =df.format(new Date());
-//
-//        }
+        String time = "0";
+        if(time.equals("24")){
+            SimpleDateFormat df = new SimpleDateFormat("HH");//设置日期格式
+            time =df.format(new Date());
+
+        }
     }
 
 }

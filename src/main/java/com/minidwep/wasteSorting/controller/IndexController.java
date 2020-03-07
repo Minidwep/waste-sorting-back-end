@@ -6,6 +6,7 @@ import com.minidwep.wasteSorting.bean.Rubbish;
 import com.minidwep.wasteSorting.service.RubbishService;
 import com.minidwep.wasteSorting.utils.Result;
 import com.minidwep.wasteSorting.utils.ResultItem;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +19,20 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
+@Slf4j
 public class IndexController {
     @Autowired
     RubbishService rubbishService;
 
+    /**
+     *
+     * @param
+     * file 上传的文件
+     * @return
+     * rubbishList 垃圾识别结果
+     * resultList 图像识别结果
+     *
+     */
     @PostMapping("/fileUpload")
     @ResponseBody
     public Msg upload(@RequestParam("file") MultipartFile file){
@@ -31,28 +42,24 @@ public class IndexController {
         if(jsonString == null){
             return Msg.fail();
         }
-        Result result = JSON.parseObject(jsonString, Result.class);
-        List<ResultItem> resultList = result.getResult().stream().sorted(Comparator.comparing(ResultItem::getScore).reversed())
-                    .collect(Collectors.toList());
-        List<Rubbish> rubbishList = new ArrayList<>();
-        for(ResultItem item: resultList){
-            Rubbish rubbish;
-            rubbish = rubbishService.rubbishByRubNameWithMaxWeight(item.getKeyword(),1);
-            if(rubbish == null){
-                rubbish = rubbishService.rubbishByRubNameWithMaxWeight(item.getRoot(),0);
-            }
-            if(rubbish != null){
-                rubbish.setScore(item.getScore());
-                rubbishList.add(rubbish);
-            }
-        }
+//        取出识别图像的结果
+        List<ResultItem> resultList = rubbishService.getResultListByString(jsonString);
+
+//        取出识别垃圾的结果
+        List<Rubbish> rubbishList = rubbishService.getRubbishListByString(jsonString);
+
         return Msg.success().add("rubbishList",rubbishList).add("resultList",resultList);
     }
 
+    /**
+     *
+     * @param keyword
+     * @return rubbish 垃圾信息
+     */
     @GetMapping("/searchKeyword")
     @ResponseBody
     public Msg searchKeyword(@RequestParam("keyword") String keyword){
-        Rubbish rubbish = rubbishService.rubbishByRubNameWithMaxWeight(keyword,1);
+        Rubbish rubbish = rubbishService.rubbishByRubNameWithMaxWeight(keyword);
 
         return Msg.success().add("rubbish",rubbish);
     }

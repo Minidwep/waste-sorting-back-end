@@ -17,13 +17,22 @@ public class QuestionController {
     @Autowired
     QuestionService questionService;
 
+    /**
+     *
+     * @param id
+     * @return 问题信息
+     */
     @GetMapping("/question/{id}")
     @ResponseBody
     public Question getById(@PathVariable("id") Integer id){
         Question question = questionService.getOne(id);
         return question;
     }
-
+    /**
+     *
+     * @param
+     * @return 10个题目信息
+     */
     @GetMapping("/question/getTestPaper")
     @ResponseBody
     public Msg getTestPaperQuestions(){

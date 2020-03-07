@@ -1,7 +1,4 @@
-jasypt:
-  encryptor:
-    #加密秘钥
-    password: EbfYkitulv73I2p0mXI50JMXoaxZTKJ7
+
 
 spring:
   datasource:

@@ -1,10 +1,12 @@
 package com.minidwep.wasteSorting.controller;
 
+import com.minidwep.wasteSorting.utils.JedisCache;
 import com.minidwep.wasteSorting.utils.Msg;
 import com.minidwep.wasteSorting.bean.Feedback;
 import com.minidwep.wasteSorting.bean.Rubbish;
 import com.minidwep.wasteSorting.service.FeedbackService;
 import com.minidwep.wasteSorting.service.RubbishService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@Slf4j
 public class FeedbackController {
     @Autowired
     FeedbackService feedbackService;
 
     @Autowired
     RubbishService rubbishService;
+
+    @Autowired
+    JedisCache jedisCache;
 
     @GetMapping("/feedback")
     @ResponseBody
@@ -47,9 +53,22 @@ public class FeedbackController {
                 } else {
                     rubbishByRubNameAndType.setWeight(rubbishByRubNameAndType.getWeight()+1);
                     rubbishService.updateRubbish(rubbishByRubNameAndType);
+//                    更新后执行，重新设置redis的值
+//                    取到当前垃圾的类型（权重最高的）
+                    Rubbish rubbishMaxWeight = rubbishService.rubbishByRubNameWithMaxWeight(feedback.getRubName());
+
+                    if(rubbishMaxWeight!=null){
+//                         获取redis中的垃圾类型
+                        String redisResult = jedisCache.get("rubbish" + feedback.getRubName());
+//                         进行强制同步redis操作
+                        log.info("rubbish" + feedback.getRubName()+"执行同步操作,成为已存在状态！ "+"类型："+rubbishMaxWeight.getType());
+                        jedisCache.set("rubbish" + feedback.getRubName(),rubbishMaxWeight.getType()+"");
+                    } else {
+                        log.warn("rubbishMaxWeight"+"是空");
+                    }
+
                 }
             }
-            System.out.println(feedback.toString());
         } else {
             Feedback feedbackAdd = new Feedback();
             System.out.println(resultChecked+" "+rubbishChecked);

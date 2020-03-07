@@ -16,8 +16,8 @@ import redis.clients.jedis.JedisCluster;
 @RestController
 @Slf4j
 public class testController {
-    @Autowired
-    private StringEncryptor encryptor;
+//    @Autowired
+//    private StringEncryptor encryptor;
 
         @GetMapping("/logtest1")
         public String test1(){
@@ -25,20 +25,15 @@ public class testController {
             log.info("info 测试日志信息");
             log.error("info 测试日志信息");
             log.warn("warn 测试日志信息");
-//            ApplicationContext context = new AnnotationConfigApplicationContext(RedisAutoConfiguration.class);
-//            JedisCluster jedisCluster = (JedisCluster)context.getBean("jedisCluster");
-//            String java = jedisCluster.get("java");
-//            System.out.println(java);
-
             return "ok";
         }
-
-    @GetMapping("/jasypt/{key}")
-    public void testJasypt(@PathVariable("key")String key) {
-        String password = key;
-        String encryptPwd = encryptor.encrypt(password);
-        System.out.println("加密:：" + encryptPwd);
-        System.out.println("解密：" + encryptor.decrypt(encryptPwd));
-    }
+//
+//    @GetMapping("/jasypt/{key}")
+//    public void testJasypt(@PathVariable("key")String key) {
+//        String password = key;
+//        String encryptPwd = encryptor.encrypt(password);
+//        System.out.println("加密:：" + encryptPwd);
+//        System.out.println("解密：" + encryptor.decrypt(encryptPwd));
+//    }
 
 }
