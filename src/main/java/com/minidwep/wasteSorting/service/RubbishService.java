@@ -1,7 +1,7 @@
 package com.minidwep.wasteSorting.service;
 
 import com.minidwep.wasteSorting.bean.Rubbish;
-import com.minidwep.wasteSorting.utils.ResultItem;
+import com.minidwep.wasteSorting.pojo.ResultItem;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +19,7 @@ public interface RubbishService {
     void  updateRubbish(Rubbish rubbish);
 
 //    获得图像识别信息
-    String getStringResultByAipImageClassify(MultipartFile file, String localPath, String originalFilename);
+    String getStringResultByAipImageClassify(MultipartFile file);
 
 //    添加一个垃圾
     void addRubbish(Rubbish rubbish);

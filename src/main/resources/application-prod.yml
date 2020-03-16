@@ -1,4 +1,7 @@
-
+jasypt:
+  encryptor:
+    #加密秘钥
+    password: EbfYkitulv73I2p0mXI50JMXoaxZTKJ7
 
 spring:
   datasource:
@@ -56,6 +59,13 @@ mybatis:
   configuration:
     call-setters-on-nulls: true
 
+  #配置日志相关信息
 logging:
+    #  日志文件名
   file: rubbitsort.log
-  path: /root/rubbitsortlogs
+    #  日志文件目录
+  path: /root/apps/rubbishsorting/logs
+
+  #文件缓存目录
+photo:
+  path: /root/apps/rubbishsorting/data

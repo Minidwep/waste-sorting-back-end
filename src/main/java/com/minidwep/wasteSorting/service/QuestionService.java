@@ -10,5 +10,9 @@ import java.util.List;
 public interface QuestionService {
     Question getOne(Integer id);
 
-    List<Question> getPaperQuestion();
+    List<Question> getPaperQuestion(int count);
+
+    List<Question> getPaperQuestionInRedis(int count);
+
+    void refreshQuestionPool();
 }

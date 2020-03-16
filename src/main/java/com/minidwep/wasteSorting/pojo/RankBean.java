@@ -1,4 +1,4 @@
-package com.minidwep.wasteSorting.bean;
+package com.minidwep.wasteSorting.pojo;
 
 public class RankBean {
     String name;

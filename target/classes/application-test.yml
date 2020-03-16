@@ -1,4 +1,7 @@
-
+jasypt:
+  encryptor:
+    #加密秘钥
+    password: EbfYkitulv73I2p0mXI50JMXoaxZTKJ7
 
 spring:
   datasource:
@@ -10,7 +13,7 @@ spring:
     #      - classpath:sql/employee.sql
     druid:
       ##################################### 本地数据库
-      url:   jdbc:mysql://rm-2ze34ml3915j77qnz.mysql.rds.aliyuncs.com:3306/garbage_classification?serverTimezone=GMT&characterEncoding=utf8
+      url: jdbc:mysql://rm-2ze34ml3915j77qnzoo.mysql.rds.aliyuncs.com:3306/garbage_classification?serverTimezone=GMT&characterEncoding=utf8
       username: root
       password: ENC(VhJjVfXB/MW/N+YpeHuRRX3oXwvs5i1t)
       initial-size: 5  # 初始化大小
@@ -44,7 +47,7 @@ spring:
         url-pattern: /druid/*
         reset-enable: true
         login-username: admin
-        login-password: ENC(DIYk8lQhfr6TM5qVjsBi0g==)
+        login-password: 123456
 
 
 # Druid 开启     spring 监控
@@ -56,6 +59,13 @@ mybatis:
   configuration:
     call-setters-on-nulls: true
 
+#配置日志相关信息
 logging:
+#  日志文件名
   file: mylogs.log
+#  日志文件目录
   path: D:/SuperMapDataLogs/mylogs
+
+#文件缓存目录
+photo:
+  path: E:\Photos

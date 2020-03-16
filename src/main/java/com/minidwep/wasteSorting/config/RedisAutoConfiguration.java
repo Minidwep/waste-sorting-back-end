@@ -19,7 +19,7 @@ import java.util.Set;
 @Slf4j
 @Configuration
 @Component
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:redis-cluster.conf")
 public class RedisAutoConfiguration  {
 
     @Value("${redis.node1.ip}")
@@ -84,7 +84,7 @@ public class RedisAutoConfiguration  {
         pool.setMinIdle(minIdle);
         pool.setMaxIdle(maxIdle);
         pool.setMaxWaitMillis(maxWaitMillis);
-        JedisCluster jedisCluster = new JedisCluster(nodes, connectionTimeout, soTimeout, maxAttempts, pool);
+        JedisCluster jedisCluster = new JedisCluster(nodes, connectionTimeout, soTimeout, maxAttempts,password, pool);
         return jedisCluster;
     }
 }

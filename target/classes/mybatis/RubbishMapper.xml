@@ -3,12 +3,16 @@
 <mapper namespace="com.minidwep.wasteSorting.mapper.RubbishMapper">
 
 
-    <select id="getRubbishByRubNameAndType"  resultType="com.minidwep.wasteSorting.bean.Rubbish" >
+    <select id="getRubbishByRubNameAndType" resultType="com.minidwep.wasteSorting.bean.Rubbish">
       select * from rubbish where rubbish.rub_name = #{rubName} and rubbish.type = #{rubType}
     </select>
 
-    <select id="getRubbishByRubNameWithMaxWeight"  resultType="com.minidwep.wasteSorting.bean.Rubbish" >
-      (select t.rub_name,t.type,max(t.weight) weight from (select * from rubbish where rubbish.rub_name = #{rubName}) t GROUP BY rub_name)
+    <select id="getRubbishByRubNameWithMaxWeight" resultType="com.minidwep.wasteSorting.bean.Rubbish">
+      select r.rub_name ,r.type ,r.weight
+      from(select rubbish.rub_name,max(weight) weight from rubbish WHERE rub_name=#{rubName}) t
+      LEFT JOIN  rubbish r
+      ON t.weight =r.weight and t.rub_name = r.rub_name
+      LIMIT 0, 1
     </select>
 
 

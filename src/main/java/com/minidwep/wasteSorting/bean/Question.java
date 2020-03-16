@@ -50,4 +50,15 @@ public class Question {
     public void setNumFalse(Integer numFalse) {
         this.numFalse = numFalse;
     }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", info='" + info + '\'' +
+                ", answer=" + answer +
+                ", numTrue=" + numTrue +
+                ", numFalse=" + numFalse +
+                '}';
+    }
 }

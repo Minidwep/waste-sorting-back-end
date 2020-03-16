@@ -1,4 +1,4 @@
-package com.minidwep.wasteSorting.utils;
+package com.minidwep.wasteSorting.pojo;
 
 import java.util.List;
 

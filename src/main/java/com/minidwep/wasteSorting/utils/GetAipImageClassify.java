@@ -34,16 +34,4 @@ public  class GetAipImageClassify {
         return uuid;
     }
 
-
-    public static void main(String[] args) {
-//        GetAipImageClassify instance = GetAipImageClassify.getInit();
-//        // 传入可选参数调用接口
-//        HashMap<String, String> options = new HashMap<String, String>();
-//        options.put("baike_num", "5");
-//        // 参数为本地路径
-//        String image = "E:\\Photos\\1.jpg";
-//        JSONObject res = instance.client.advancedGeneral(image, options);
-//        System.out.println(res.toString(2));
-
-    }
 }

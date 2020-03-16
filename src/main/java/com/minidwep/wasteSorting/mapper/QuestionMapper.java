@@ -12,5 +12,5 @@ import java.util.List;
 public interface QuestionMapper {
     Question getQuestionById(@Param("id")Integer id);
 
-    List<Question> getPaperQuestions();
+    List<Question> getPaperQuestions(@Param("count")Integer count);
 }

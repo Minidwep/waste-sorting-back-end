@@ -15,10 +15,11 @@ import java.util.Set;
 public class test {
 
     public static JedisCluster getJedis() {
-        final String redisURL1 = "39.106.72.218";
-        final String redisURL2 = "47.113.113.196";
+        final String redisURL1 = "47.113.113.196";
+        final String redisURL2 = "39.106.72.218";
         final String redisURL3 = "39.96.72.169";
-        final String auth = "";
+        final String auth = "GAGdJIzU6k$Pcxe^";
+        final String password ="GAGdJIzU6k$Pcxe^";
         final int port7001 = 7001;
         final int port7002 = 7002;
 
@@ -32,6 +33,7 @@ public class test {
         GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
         poolConfig.setMaxTotal(MAX_TOTAL);
         poolConfig.setMaxIdle(MAX_IDLE);
+
 
         HostAndPort hostAndPort1 = new HostAndPort(redisURL1, port7001);
         HostAndPort hostAndPort2 = new HostAndPort(redisURL1, port7002);
@@ -48,7 +50,7 @@ public class test {
         hostAndPortSet.add(hostAndPort5);
         hostAndPortSet.add(hostAndPort6);
 
-        JedisCluster jedisCluster1 = new JedisCluster(hostAndPortSet, CONN_TIME_OUT, SO_TIME_OUT, MAX_ATTEMPTS, poolConfig);
+        JedisCluster jedisCluster1 = new JedisCluster(hostAndPortSet, CONN_TIME_OUT, SO_TIME_OUT, MAX_ATTEMPTS, password,poolConfig);
         return jedisCluster1;
     }
 
@@ -63,28 +65,36 @@ public class test {
 //            e.printStackTrace();
 //        }
         try {
+
             JedisCluster jedisCluster = getJedis();
-            jedisCluster.del("test1");
-            jedisCluster.zadd("test1", 10, "香蕉皮");
-            jedisCluster.zadd("test1", 20, "南瓜20皮");
-            jedisCluster.zadd("test1", 50, "苹果50皮");
-            Long isHave = jedisCluster.zrank("test1", "西瓜皮");
-            if(isHave == null){
-                System.out.println("不存在");
-                jedisCluster.zadd("test1", 0, "西瓜皮");
-                System.out.println("加入");
-            } else {
-                System.out.println(isHave);
-                System.out.println("增量1");
-                Double zscore = jedisCluster.zscore("test1", "西瓜皮");
-                System.out.println(zscore);
-                jedisCluster.zincrby("test1",1,"西瓜皮");
-            }
-            Set<String> test1 = jedisCluster.zrevrangeByScore("rank", 10000, -1);
-            for(String str :test1){
-                Double zscore = jedisCluster.zscore("rank", str);
-                System.out.println(zscore+"-"+str);
-            }
+            jedisCluster.append("123","123");
+            String s = jedisCluster.get("123");
+            System.out.println(s);
+//            Long rubbish = jedisCluster.pttl("rubbish王冠锐");
+//            System.out.println(rubbish);
+//            jedisCluster.del("test1");
+//            jedisCluster.zadd("test1", 10, "香蕉皮");
+//            jedisCluster.zadd("test1", 20, "南瓜20皮");
+//            jedisCluster.zadd("test1", 50, "苹果50皮");
+//            Long isHave = jedisCluster.zrank("test1", "西瓜皮");
+//            if(isHave == null){
+//                System.out.println("不存在");
+//                jedisCluster.zadd("test1", 0, "西瓜皮");
+//                System.out.println("加入");
+//            } else {
+//                System.out.println(isHave);
+//                System.out.println("增量1");
+//                Double zscore = jedisCluster.zscore("test1", "西瓜皮");
+//                System.out.println(zscore);
+//                jedisCluster.zincrby("test1",1,"西瓜皮");
+//            }
+//            Set<String> test1 = jedisCluster.zrevrangeByScore("rank", 10000, -1);
+//            String rank = jedisCluster.type("rank123");
+//            System.out.println(rank);
+//            for(String str :test1){
+//                Double zscore = jedisCluster.zscore("rank", str);
+//                System.out.println(zscore+"-"+str);
+//            }
 
         } catch (Exception e){
             e.printStackTrace();
@@ -93,7 +103,6 @@ public class test {
         if(time.equals("24")){
             SimpleDateFormat df = new SimpleDateFormat("HH");//设置日期格式
             time =df.format(new Date());
-
         }
     }
 

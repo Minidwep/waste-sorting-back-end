@@ -35,8 +35,20 @@ public class QuestionController {
      */
     @GetMapping("/question/getTestPaper")
     @ResponseBody
-    public Msg getTestPaperQuestions(){
-            List<Question> questions = questionService.getPaperQuestion();
+    public Msg getPaperQuestionInRedis(){
+            List<Question> questions = questionService.getPaperQuestionInRedis(10);
         return Msg.success().add("questions",questions);
     }
+
+    /**
+     * 管理员重新拉取题目库
+     * @return
+     */
+    @GetMapping("/admin/question/refreshQuestionPool")
+    @ResponseBody
+    public Msg refreshQuestionPool(){
+        questionService.refreshQuestionPool();
+        return Msg.success();
+    }
+
 }
